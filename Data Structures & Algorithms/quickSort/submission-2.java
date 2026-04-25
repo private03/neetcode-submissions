@@ -1,0 +1,48 @@
+// Definition for a pair.
+// class Pair {
+//     int key;
+//     String value;
+//
+//     public Pair(int key, String value) {
+//         this.key = key;
+//         this.value = value;
+//     }
+// }
+class Solution {
+    public List<Pair> quickSort(List<Pair> pairs) {
+        if(pairs == null || pairs.size() == 0)
+        {
+            return pairs;
+        }
+        quickSortHelper(pairs, 0, pairs.size() - 1);
+        return pairs;
+    }
+
+    public void quickSortHelper(List<Pair> pairs, int s, int e)
+    {
+        if( e - s + 1 <= 1)
+        {
+            return;
+        }
+
+        int left = s;
+        Pair pivot = pairs.get(e);
+
+        for(int i = s; i < e; i++)
+        {
+            if(pairs.get(i).key < pairs.get(e).key)
+            {
+                Pair temp = pairs.get(i);
+                pairs.set(i, pairs.get(left));
+                pairs.set(left, temp);
+                left++;
+            }
+        }
+
+        pairs.set(e, pairs.get(left));
+        pairs.set(left, pivot);
+
+        quickSortHelper(pairs, s, left - 1);
+        quickSortHelper(pairs, left + 1, e);
+    }
+}
